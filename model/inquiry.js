@@ -1,0 +1,40 @@
+var mongoose = require('mongoose');
+
+var inquiryschema = new mongoose.Schema({
+    branch:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'branch'
+    },
+    name:{
+        type:String
+    },
+    contact:{
+        type:Number
+    },
+    joindate:{
+        type:String
+    },
+    reference:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'reference'
+    },
+    ref_by:{
+        type:String
+    },
+    inquiry_by:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'admin'
+    },
+    status:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'status'
+    },
+    status_date:{
+        type:String
+    },
+    inquiry_date:{
+        type:String
+    }
+})
+
+module.exports = mongoose.model('inquiry',inquiryschema);
