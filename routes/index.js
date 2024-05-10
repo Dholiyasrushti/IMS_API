@@ -19,7 +19,7 @@ router.post('/register',admin.add_admin);
 router.post('/admin_update/:id',auth.check_token,admin.admin_update);
 router.get('/admin_update/:id',auth.check_token,admin.viewadmin_update);
 
-router.post('/admin_delete/:id',auth.check_token,admin.admin_delete);
+router.get('/admin_delete/:id',auth.check_token,admin.admin_delete);
 router.post('/admin_login',admin.admin_login);
 router.get('/view_admin',auth.check_token,admin.view_admin);
 router.get('/find_admin',auth.check_token,admin.find_admin);
