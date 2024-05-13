@@ -39,7 +39,7 @@ exports.inquiry = async (req,res) =>{
 };
 
 exports.verifyOTP = async (req, res) => {
-  const otp = req.body;
+  const { otp } = req.body;
 
 
    const storedOTP = await storage.getItem('otp');
