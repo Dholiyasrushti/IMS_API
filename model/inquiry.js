@@ -34,6 +34,16 @@ var inquiryschema = new mongoose.Schema({
     },
     inquiry_date:{
         type:String
+    },
+    email:{
+        type:String
+    },
+    otp:{
+        type:Number
+    },
+    verify:{
+        type:Boolean,
+        default:false
     }
 })
 

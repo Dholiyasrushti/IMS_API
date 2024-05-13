@@ -5,13 +5,18 @@ storage.init( /* options... */);
 
 
 exports.reference = async (req,res) =>{
-    
+    var ref_data = await reference.find({"name":req.body.name});
+    if(ref_data.length == 1){
+        res.status(200).json({
+            status:"reference is already Exist",
+        })
+    }else{
         var data = await reference.create(req.body);
         res.status(200).json({
             status:"reference Insert",
             data
          })
-    
+    }
 }
 
 exports.reference_delete  = async  (req,res) =>{

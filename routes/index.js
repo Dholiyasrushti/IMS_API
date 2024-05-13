@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
-router.post('/register',upload.single('image'),admin.add_admin)
+router.post('/register',upload.single('image'),admin.add_admin);
 router.post('/register',admin.add_admin);
 router.post('/admin_update/:id',auth.check_token,admin.admin_update);
 router.get('/admin_update/:id',auth.check_token,admin.viewadmin_update);

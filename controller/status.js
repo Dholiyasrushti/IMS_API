@@ -5,13 +5,18 @@ storage.init( /* options... */);
 
 
 exports.status = async (req,res) =>{
-    
+    var status_data = await reference.find({"name":req.body.name});
+    if(status_data.length == 1){
+        res.status(200).json({
+            status:"status is already Exist",
+        })
+    }else{
         var data = await status.create(req.body);
         res.status(200).json({
             status:"status Insert",
             data
          })
-     
+        } 
 }
 
 exports.status_delete  = async  (req,res) =>{
@@ -26,16 +31,21 @@ exports.status_delete  = async  (req,res) =>{
 }
 
 exports.status_update = async(req,res) =>{
-    
+    var status_data = await reference.find({"name":req.body.name});
+    if(status_data.length == 1){
+        res.status(200).json({
+            status:"status is already Exist",
+        })
+    }else{
         var id = req.params.id;
         var data = await status.findByIdAndUpdate(id,req.body);
         res.status(200).json({
             status:"status update",
             data
         })
-
+    }
 }
-exports.status_update = async(req,res) =>{
+exports.viewstatus_update = async(req,res) =>{
     
         var id = req.params.id;
         var data = await status.findById(id);
