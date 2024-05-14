@@ -14,7 +14,6 @@ var transporter = nodemailer.createTransport({
     return Math.floor(100000 + Math.random() * 900000);
   }
 exports.inquiry = async (req,res) =>{
-        const {branch ,name,contact,joindate,reference,ref_by,inquiry_by,status,status_date,inquiry_date,email } = req.body;
 
         const otp =  randomotp();
 
@@ -32,10 +31,13 @@ exports.inquiry = async (req,res) =>{
           }
         })
         await storage.setItem('otp', otp);
-        await storage.setItem('inquiryDetails', {
-            branch, name, contact, joindate, reference, ref_by, inquiry_by,
-            status, status_date, inquiry_date, email
-        });
+      
+        var data = await inquiry.create(req.body);
+        res.status(200).json({
+            status:" Insert inquiry",
+            data
+         })
+
 };
 
 exports.verifyOTP = async (req, res) => {
@@ -45,19 +47,16 @@ exports.verifyOTP = async (req, res) => {
    const storedOTP = await storage.getItem('otp');
 
    if (storedOTP && storedOTP === otp) {
-    
-       const inquiryDetails = await storage.getItem('inquiryDetails');
-       const newInquiry = new inquiry(inquiryDetails);
-       await newInquiry.save();  
-       await inquiry.findByIdAndUpdate(newInquiry._id, { verify: true });
+     
+       const updatedInquiry = await inquiry.findOneAndUpdate({verify : true});
 
-       await storage.clear();
+            
+            await storage.clear();
 
-
-       res.status(200).json({ 
-        status: 'Inquiry created successfully', 
-        data: newInquiry 
-      });
+            res.status(200).json({
+                status: "Inquiry Verified",
+                data: updatedInquiry
+            });
    } else {
        res.status(400).json({ 
         status: 'Invalid OTP. Inquiry creation failed.'
