@@ -31,24 +31,27 @@ exports.inquiry = async (req,res) =>{
           }
         })
         await storage.setItem('otp', otp);
+        
       
         var data = await inquiry.create(req.body);
         res.status(200).json({
             status:" Insert inquiry",
             data
          })
+         await storage.setItem('id', data._id.toString());
+
 
 };
 
 exports.verifyOTP = async (req, res) => {
   const { otp } = req.body;
 
-
+  var id = await storage.getItem('id');
    const storedOTP = await storage.getItem('otp');
 
    if (storedOTP && storedOTP === otp) {
      
-       const updatedInquiry = await inquiry.findOneAndUpdate({verify : true});
+       const updatedInquiry = await inquiry.findByIdAndUpdate(id ,{verify : true});
 
             
             await storage.clear();
