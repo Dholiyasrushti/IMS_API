@@ -5,8 +5,8 @@ storage.init( /* options... */);
 
 
 exports.reference = async (req,res) =>{
-    var ref_data = await reference.find({"name":req.body.name});
-    if(ref_data.length == 1){
+    var ref_data = await reference.findOne({name:req.body.name});
+    if(ref_data){
         res.status(200).json({
             status:"reference is already Exist",
         })
@@ -31,12 +31,20 @@ exports.reference_delete  = async  (req,res) =>{
 
 exports.reference_update = async(req,res) =>{
     
+    var ref_data = await reference.findOne({name:req.body.name});
+    if(ref_data){
+        res.status(200).json({
+            status:"reference is already Exist",
+        })
+    }else{
         var id = req.params.id;
         var data = await reference.findByIdAndUpdate(id,req.body);
         res.status(200).json({
             status:"reference update",
             data
         })
+    }
+        
     
 }
 exports.viewreference_update = async(req,res) =>{

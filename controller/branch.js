@@ -5,8 +5,8 @@ storage.init( /* options... */);
 
 
 exports.branch = async (req,res) =>{
-    var branch_data = await branch.find({"name":req.body.name});
-    if(branch_data.length == 1){
+    var branch_data = await branch.findOne({name:req.body.name});
+    if(branch_data){
         res.status(200).json({
             status:"branch is already Exist",
         })
@@ -32,8 +32,8 @@ exports.branch_delete  = async  (req,res) =>{
 
 exports.branch_update = async(req,res) =>{
     
-    var branch_data = await branch.find({"name":req.body.name});
-    if(branch_data == length){
+    var branch_data = await branch.findOne({name:req.body.name});
+    if(branch_data){
         res.status(200).json({
             status:"branch is already Exist",
         })

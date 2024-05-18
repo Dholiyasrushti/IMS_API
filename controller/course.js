@@ -5,8 +5,8 @@ storage.init( /* options... */);
 
 
 exports.course = async (req,res) =>{
-    var course_data = await course.find({"name":req.body.name});
-    if(course_data.length == 1){
+    var course_data = await course.findOne({name:req.body.name});
+    if(course_data){
         res.status(200).json({
             status:"course is already Exist",
         })
@@ -29,8 +29,8 @@ exports.course_delete  = async  (req,res) =>{
 }
 
 exports.course_update = async(req,res) =>{
-    var course_data = await course.find({"name":req.body.name});
-    if(course_data.length == 1){
+    var course_data = await course.findOne({name:req.body.name});
+    if(course_data){
         res.status(200).json({
             status:"course is already Exist",
         })

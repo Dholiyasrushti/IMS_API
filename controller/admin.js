@@ -49,7 +49,7 @@ exports.viewadmin_update = async(req,res) =>{
 }
 
 exports.logoutadmin = async(req,res)=>{
-    await storage.clear('login-admin');
+    await storage.clear('admin-login');
     res.status(200).json({
         status:" logout "
     })
@@ -64,53 +64,21 @@ exports.view_admin = async(req,res) =>{
         })
     
 }
-// exports.admin_login = async (req,res) =>{
-//     console.log(req.body)
-//     var admin_status = await storage.getItem('login-admin');
-//     if(admin_status == undefined){
-//         var data = await admin.find({"admin_email":req.body.admin_email});
-//         if(data.length == 1){
-//             bcrypt.compare(req.body.admin_pass,data[0].admin_pass,async function(err,result){
-//                 if(result == true){
-//                     await storage.setItem('login-admin',data[0].id);
-//                     const token = jwt.sign({ adminId: admin._id }, 'IMS', { expiresIn: '1h' });
-//                     // const time=new Date.now();
-//                     res.status(200).json({
-//                         status:"Login Success",
-//                         token,
-                    
-//                     })
-//                 }else{
-//                     res.status(200).json({
-//                         status:"Check Your admin email and password"
-//                     })
-//                 }
-//             })
-//         }else{
-//             res.status(200).json({
-//                 status:"Check Your admin email and password"
-//             })
-//         }
-//     }else {
-//         res.status(200).json({
-//             status:"Admin is already login"
-//         })
-//     }
-// }
+
 exports.admin_login = async (req, res) => {
     var status = await storage.getItem("admin-login");
 
   if (status == undefined) {
     // var name = await admin.find({ name: req.body.name });
-    var email = await admin.find({"admin_email":req.body.admin_email});
+    var email = await admin.findOne({admin_email:req.body.admin_email});
 
-    if (email.length == 1) {
+    if (email) {
       bcrypt.compare(
         req.body.admin_pass,
-        email[0].admin_pass,
+        email.admin_pass,
         async function (err, result) {
           if (result == true) {
-            await storage.setItem('admin-login',email[0].id);
+            await storage.setItem(' -login',email.id);
             const token = jwt.sign({ adminId: admin._id }, 'IMS', { expiresIn: '1h' });
             res.status(200).json({
               status: "login success",

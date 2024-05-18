@@ -5,8 +5,8 @@ storage.init( /* options... */);
 
 
 exports.status = async (req,res) =>{
-    var status_data = await reference.find({"name":req.body.name});
-    if(status_data.length == 1){
+    var status_data = await reference.findOne({name:req.body.name});
+    if(status_data){
         res.status(200).json({
             status:"status is already Exist",
         })
@@ -31,8 +31,8 @@ exports.status_delete  = async  (req,res) =>{
 }
 
 exports.status_update = async(req,res) =>{
-    var status_data = await reference.find({"name":req.body.name});
-    if(status_data.length == 1){
+    var status_data = await reference.findOne({name:req.body.name});
+    if(status_data){
         res.status(200).json({
             status:"status is already Exist",
         })

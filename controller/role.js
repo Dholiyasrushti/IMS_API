@@ -3,8 +3,8 @@ const role = require('../model/role');
 storage.init( /* options... */)
 
 exports.add_role = async (req,res) =>{
-    var role_data = await role.find({"name":req.body.name});
-    if(role_data.length == 1){
+    var role_data = await role.findOne({name:req.body.name});
+    if(role_data){
         res.status(200).json({
             status:"role is already Exist",
         })
@@ -28,8 +28,8 @@ exports.role_delete  = async  (req,res) =>{
  }
  
  exports.role_update = async(req,res) =>{
-    var role_data = await role.find({"name":req.body.name});
-    if(role_data.length == 1){
+    var role_data = await role.findOne({name:req.body.name});
+    if(role_data){
         res.status(200).json({
             status:"role is already Exist",
         })
