@@ -14,7 +14,7 @@ var http = require('http');
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/IMS')
+mongoose.connect('mongodb+srv://IMS:IMS@cluster0.yngecnp.mongodb.net/')
   .then(() => console.log('Connected!'));
 
 
