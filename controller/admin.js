@@ -8,7 +8,7 @@ var jwt = require('jsonwebtoken');
 exports.add_admin = async (req,res) =>{
      var b_pass = await bcrypt.hash(req.body.admin_pass,10);
      req.body.admin_pass = b_pass;
-     req.body.image = req.file.originalname;
+    //  req.body.image = req.file.originalname;
 
      var data = await admin.create(req.body);
      res.status(200).json({
