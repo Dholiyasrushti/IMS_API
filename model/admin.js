@@ -21,8 +21,6 @@ var adminschema = new mongoose.Schema({
    contact:{
         type:String
    },
-   image : {
-        type:String
-   }
+  
 })
 module.exports = mongoose.model('admin',adminschema);
